@@ -3,9 +3,9 @@ A "Nyíregyháza" csapat kis projektje
 
 Óra ideje: hétfő, 12:00
 
-A projekt témája: film listázó webapp
+A projekt témája: todo webapp
 
-Vízió: Film listázó webalkalmazás. Lehetőség van benne filmek hozzáadására, listázására, keresésére, szűrésre.
+Vízió: todo webapp CRUD műveletekkel.
 
 Tagok:
 - Tóth Áron Pál
