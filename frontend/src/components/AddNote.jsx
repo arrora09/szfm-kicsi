@@ -15,9 +15,24 @@ export const AddNote = (props) => {
     setNewNote({ ...newNote, [name]: value });
   };
 
-  const saveNote = () => {
-    const note = { ...newNote, pos: { x: 0, y: 0 } };
-    props.setNotes([...props.notes, note]);
+  const saveNote = async () => {
+    const note = {
+      ...newNote,
+      pos: { x: 200, y: 200 },
+      id: props.notes.length,
+    };
+    const newNotes = [...props.notes, note];
+    props.setNotes(newNotes);
+
+    const response = await fetch("http://localhost:4000/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newNotes),
+    });
+    if (!response.ok) console.error("Error saving data");
+
     props.closePopups();
   };
 
@@ -40,16 +55,14 @@ export const AddNote = (props) => {
       <div
         className={
           "mb-4 w-full text-center flex flex-row justify-between items-center"
-        }
-      >
+        }>
         <p></p>
-        <p className={"text-xl font-bold "}>Jegyzet jétrehozása</p>
+        <p className={"text-xl font-bold mx-8"}>Jegyzet létrehozása</p>
         <p
           className={
-            "text-xl text-red-800 hover:cursor-pointer hover:text-red-600 transition-all"
+            "text-xl text-red hover:cursor-pointer hover:text-red transition-all"
           }
-          onClick={props.closePopups}
-        >
+          onClick={props.closePopups}>
           <FontAwesomeIcon icon={faX} />
         </p>
       </div>
@@ -58,8 +71,7 @@ export const AddNote = (props) => {
           <div className="mb-4">
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray-700"
-            >
+              className="block text-sm font-medium text-gray">
               Jegyzet címe
             </label>
             <input
@@ -68,7 +80,7 @@ export const AddNote = (props) => {
               value={newNote.title}
               onChange={handleChange}
               maxLength={50}
-              className="mt-1 p-2 block w-full text-black border bg-white border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 "
+              className="mt-1 p-2 block w-full text-black border bg-white border-gray rounded-md shadow-sm focus:ring-green focus:border-green "
               placeholder="Ide írja a címet!"
             />
           </div>
@@ -76,8 +88,7 @@ export const AddNote = (props) => {
           <div className="mb-4">
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
-            >
+              className="block text-sm font-medium text-gray">
               Jegyzet leírása
             </label>
             <textarea
@@ -86,7 +97,7 @@ export const AddNote = (props) => {
               onChange={handleChange}
               maxLength={160}
               rows={4}
-              className="mt-1 p-2 block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 text-black"
+              className="mt-1 p-2 block w-full bg-white border border-gray rounded-md shadow-sm focus:ring-green focus:border-green text-black"
               placeholder="Ide írja a leírást!"
             />
           </div>
@@ -95,8 +106,7 @@ export const AddNote = (props) => {
             <div>
               <label
                 htmlFor="color"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray">
                 Jegyzet színe
               </label>
               <input
@@ -111,8 +121,7 @@ export const AddNote = (props) => {
               <button
                 onClick={() => saveNote()}
                 disabled={addDisabled}
-                className="px-4 py-2 bg-green-800 text-white rounded-md hover:bg-green-700 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-red-600 disabled:hover:bg-red-500 transition-all disabled:hover:cursor-not-allowed"
-              >
+                className="px-4 py-2 bg-green text-white rounded-md hover:bg-green hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green disabled:bg-red disabled:hover:bg-red transition-all disabled:hover:cursor-not-allowed">
                 Létrehozás
               </button>
             </div>

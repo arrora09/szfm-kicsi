@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DATA } from "../utils.jsx";
 import { AddNote } from "./AddNote.jsx";
+import { Note } from "./Note.jsx";
 
 export const NotesMain = () => {
   const [notes, setNotes] = useState([]);
@@ -10,18 +11,30 @@ export const NotesMain = () => {
   const [isAddVisible, setIsAddVisible] = useState(false);
 
   useEffect(() => {
-    setNotes([]);
-    //setNotes([...DATA.notes]);
-  }, []);
+    const fetchNotes = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/load");
+        if (!response.ok) throw new Error("Error loading data");
+
+        const jsonData = await response.json();
+        setNotes(jsonData);
+      } catch (error) {
+        console.error(error);
+        // Optionally handle errors here, e.g., show a message
+      }
+    };
+
+    fetchNotes(); // Call the async function
+  }, []); // Empty dependency array means this runs once on mount
 
   const closePopups = () => {
     setIsBlured(false);
     setIsAddVisible(false);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log(notes);
-  }, [notes]);
+  }, [notes]);*/
 
   return (
     <div className={"w-screen h-screen bg-black"}>
@@ -32,8 +45,7 @@ export const NotesMain = () => {
         <div
           className={
             "absolute w-screen h-screen flex flex-col justify-center items-center text-white z-20"
-          }
-        >
+          }>
           <AddNote
             notes={notes}
             setNotes={setNotes}
@@ -41,20 +53,39 @@ export const NotesMain = () => {
           />
         </div>
       )}
-      <div className={"absolute"}>
+      <div className={"absolute z-10"}>
         <p
           className={
-            "mt-4 ml-4 w-14 h-14 text-4xl bg-green-900  flex flex-col justify-center items-center hover:bg-green-700 hover:cursor-pointer hover:text-black transition-all duration-100"
+            "mt-4 ml-4 w-14 h-14 text-4xl text-white bg-green  flex flex-col justify-center items-center hover:bg-green hover:cursor-pointer hover:text-black transition-all duration-200"
           }
           style={{ borderRadius: "50%" }}
           onClick={() => {
             setIsBlured(true);
             setIsAddVisible(true);
-          }}
-        >
+          }}>
           <FontAwesomeIcon icon={faPlus} />
         </p>
       </div>
+
+      <div className={"absolute z-10 bottom-5 right-5"}>
+        <p
+          className={
+            "mt-4 ml-4 w-14 h-14 text-4xl text-white bg-red  flex flex-col justify-center items-center hover:bg-red hover:cursor-pointer hover:text-black transition-all duration-200"
+          }
+          style={{ borderRadius: "50%" }}
+          onClick={() => {
+            console.log("Margithai");
+          }}>
+          <FontAwesomeIcon icon={faMinus} />
+        </p>
+      </div>
+      {notes.map((note) => {
+        return (
+          <div key={note.id} className="absolute z-0">
+            <Note notes={notes} setNotes={setNotes} {...note}></Note>
+          </div>
+        );
+      })}
     </div>
   );
 };
