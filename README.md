@@ -13,24 +13,5 @@ Tagok:
 - Horváth Alex Kristóf
 - Margitai Balázs
 
-<div hidden>
-```
-@startuml
-left to right direction
-skinparam packageStyle rectangle
-actor "Felhasználó" as a1
-rectangle "TODO" {
-  a1 --> (Kártya létrehozása)
-  a1 --> (Kártya szerkesztése)
-  a1 --> (Kártya mozgatása)
-  a1 --> (Kártya kidobása)
-  a1 --> (Lomtár űrítése) 
-  (Kártya kidobása) ..>  (Lomtárba helyezés) : <<include>>
-  (Lomtár űrítése) ..> (Végleges törlés) : <<include>>
-}
-@enduml
-```
-</div>
-
-![](firstDiagram.svg)
+![diagram.plantuml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/arrora09/szfm-kicsi/refs/heads/main/diagram.plantuml)
 
