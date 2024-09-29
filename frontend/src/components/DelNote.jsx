@@ -71,7 +71,7 @@ export const DelNote = (props) => {
         <ul className="list-disc pl-5 text-sm">
           {props.deleted.map((note, index) => (
             <li key={index}
-                className="mb-1 flex flex-row justify-between items-center text-black"
+                className="mb-1 flex flex-row justify-between items-center text-black bg-gray-200 odd:bg-gray-300"
                 >
                   <p
                   className="text-xl max-w-72 font-semibold">

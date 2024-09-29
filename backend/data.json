@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "title": "fdasg",
+    "description": "sgasgasdfa",
+    "color": "#210303",
+    "isInTrash": true,
+    "pos": {
+      "x": 200,
+      "y": 200
+    },
+    "id": 0
+  },
+  {
+    "title": "faedsaf",
+    "description": "dgasgasdf",
+    "color": "#140505",
+    "isInTrash": true,
+    "pos": {
+      "x": 200,
+      "y": 200
+    },
+    "id": 1
+  },
+  {
+    "title": "afsdf",
+    "description": "dasfasdfdas",
+    "color": "#ffffff",
+    "isInTrash": true,
+    "pos": {
+      "x": 200,
+      "y": 200
+    },
+    "id": 2
+  }
+]
