@@ -5,6 +5,11 @@ export const Note = (props) => {
   const [x, setX] = useState(props.note.pos.x);
   const [y, setY] = useState(props.note.pos.y);
 
+  useEffect(() => {
+    setX(props.note.pos.x);
+    setY(props.note.pos.y);
+  }, [props.note]);
+
   return (
     <Draggable
       position={{ x, y }}
@@ -39,15 +44,31 @@ export const Note = (props) => {
           const deleteThreshold = deleteZone.radius + 45;
 
           if (distanceToDeleteZone <= deleteThreshold) {
-            const updatedNotes = props.notes.map((value) => value.id === props.note.id? {...value, isInTrash: true}: value);
-            props.setNotes(updatedNotes);
+            const updatedNotes = props.notes.map((value) =>
+              value.id === props.note.id
+                ? {
+                    ...value,
+                    isInTrash: true,
+                  }
+                : value,
+            );
 
+            //props.setNotes(updatedNotes);
+            const updatedDelete = [
+              ...props.deleted,
+              ...updatedNotes.filter((value) => value.isInTrash),
+            ];
+            props.setNotes(updatedNotes.filter((value) => !value.isInTrash));
+            props.setDeleted(updatedDelete);
             const response = await fetch("http://localhost:4000/save", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(updatedNotes),
+              body: JSON.stringify([
+                ...updatedNotes.filter((value) => !value.isInTrash),
+                ...updatedDelete,
+              ]),
             });
 
             if (!response.ok)

@@ -21,16 +21,14 @@ export const NotesMain = () => {
         if (!response.ok) throw new Error("Error loading data");
 
         const jsonData = await response.json();
-        console.log(jsonData);
+        //console.log(jsonData);
 
         if (jsonData.length !== 0) {
-          setNotes(jsonData.filter((value) => value.isInTrash));
-          setDeleted(jsonData.filter((value) => !value.isInTrash));
-          console.log("IFben");
+          setNotes(jsonData.filter((value) => !value.isInTrash));
+          setDeleted(jsonData.filter((value) => value.isInTrash));
         } else {
           setNotes([]);
           setDeleted([]);
-          console.log("else");
         }
       } catch (error) {
         console.error(error);
@@ -40,19 +38,6 @@ export const NotesMain = () => {
     fetchNotes();
   }, []);
 
-  useEffect(() => {
-    //console.log(notes);
-    //console.log(deleted);
-    if (notes.length !== 0) {
-      const newDeleted = [...deleted, notes.filter(value => value.isInTrash)];
-      setDeleted(newDeleted);
-    }
-    if (deleted.length !== 0) {
-      const newNotes = [...notes, deleted.filter(value => !value.isInTrash)];
-      setNotes(newNotes);
-    }
-  }, [notes, deleted]);
-
   const closePopups = () => {
     setIsBlured(false);
     setIsAddVisible(false);
@@ -60,11 +45,16 @@ export const NotesMain = () => {
   };
 
   useEffect(() => {
-                  console.log(notes);
-                }, [notes]);
+    console.log("notes: ", notes);
+    console.log("deleted: ", deleted);
+  }, [notes, deleted]);
+
+  /*  useEffect(() => {
+                            console.log(notes);
+                          }, [notes]);*/
 
   return (
-    <div className={"w-screen h-screen bg-black"}>
+    <div className={"w-screen h-screen bg-black overflow-hidden"}>
       {isBlured && (
         <div className={"absolute backdrop-blur w-screen h-screen z-10"}></div>
       )}
@@ -77,6 +67,7 @@ export const NotesMain = () => {
           <AddNote
             notes={notes}
             setNotes={setNotes}
+            deleted={deleted}
             closePopups={closePopups}
           />
         </div>
@@ -105,11 +96,13 @@ export const NotesMain = () => {
           <DelNote
             notes={notes}
             setNotes={setNotes}
+            deleted={deleted}
+            setDeleted={setDeleted}
             closePopups={closePopups}
           />
         </div>
       )}
-      <div className={"absolute z-10 bottom-5 right-5"}>
+      <div className={"absolute z-10 bottom-5 right-5  overflow-hidden"}>
         <p
           className={
             "mt-4 ml-4 w-14 h-14 text-4xl text-white bg-red  flex flex-col justify-center items-center hover:bg-red hover:cursor-pointer hover:text-black transition-all duration-200"
@@ -128,7 +121,13 @@ export const NotesMain = () => {
       {notes.map((note) => {
         return (
           <div key={note.id} className="absolute z-0">
-            <Note notes={notes} setNotes={setNotes} note={note}></Note>
+            <Note
+              notes={notes}
+              deleted={deleted}
+              setNotes={setNotes}
+              setDeleted={setDeleted}
+              note={note}
+            ></Note>
           </div>
         );
       })}

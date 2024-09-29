@@ -16,11 +16,15 @@ export const AddNote = (props) => {
     setNewNote({ ...newNote, [name]: value });
   };
 
+  const genID = (l) => {
+    return l.length !== 0 ? Math.max(...l.map((value) => value.id)) + 1 : 0;
+  };
+
   const saveNote = async () => {
     const note = {
       ...newNote,
       pos: { x: 200, y: 200 },
-      id: props.notes.length,
+      id: genID([...props.notes, ...props.deleted]),
     };
     const newNotes = [...props.notes, note];
     props.setNotes(newNotes);

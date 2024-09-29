@@ -1,13 +1,35 @@
 [
   {
-    "title": "asdasd",
-    "description": "fafadfds",
-    "color": "#703838",
-    "isInTrash": false,
+    "title": "dsads",
+    "description": "adsads",
+    "color": "#ffffff",
+    "isInTrash": true,
     "pos": {
       "x": 200,
       "y": 200
     },
+    "id": 1
+  },
+  {
+    "title": "asd",
+    "description": "adsa",
+    "color": "#ffffff",
+    "isInTrash": true,
+    "pos": {
+      "x": 441,
+      "y": 274
+    },
     "id": 0
+  },
+  {
+    "title": "dsa",
+    "description": "dsadsad",
+    "color": "#ffffff",
+    "isInTrash": true,
+    "pos": {
+      "x": 200,
+      "y": 200
+    },
+    "id": 2
   }
 ]
