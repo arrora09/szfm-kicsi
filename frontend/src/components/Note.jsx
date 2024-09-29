@@ -15,6 +15,48 @@ export const Note = (props) => {
         setY((prev) => prev + data.deltaY); // Update y position
       }}
       onStop={async () => {
+        const getDeleteZonePosition = () => {
+          const deleteZone = document.getElementById("delete_zone");
+          if (deleteZone) {
+            const rect = deleteZone.getBoundingClientRect();
+            return {
+              x: rect.left + (rect.width / 2) - 45,  // Center x position of the red minus
+              y: rect.bottom + (rect.height / 2) - 95,
+              radius: Math.max(rect.width, rect.height) / 2, // Assume circular radius
+            };
+          }
+          return null;
+        };
+
+        console.log(getDeleteZonePosition());
+
+        const deleteZone = getDeleteZonePosition();
+
+        if (deleteZone) {
+          const distanceToDeleteZone = Math.sqrt(
+            Math.pow(deleteZone.x - x, 2) + Math.pow(deleteZone.y - y, 2)
+          );
+
+          const deleteThreshold = deleteZone.radius + 45;
+
+          if (distanceToDeleteZone <= deleteThreshold) {
+            // Delete the note by filtering it out of the notes array
+            const updatedNotes = props.notes.filter((note) => note.id !== props.id);
+            props.setNotes(updatedNotes);
+
+            const response = await fetch("http://localhost:4000/save", {
+              method: "POST",
+              headers: {
+               "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedNotes),
+            });
+
+            if (!response.ok) console.error("Error saving data after deleting note");
+            return;
+          }
+        }
+
         const newNotes = props.notes.map((note) => {
           if (note.id === props.id) {
             return {
@@ -26,6 +68,7 @@ export const Note = (props) => {
         });
 
         props.setNotes(newNotes);
+        console.log("x:" + x, "y:" + y);
 
         const response = await fetch("http://localhost:4000/save", {
           method: "POST",

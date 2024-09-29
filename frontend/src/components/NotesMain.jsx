@@ -4,11 +4,13 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DATA } from "../utils.jsx";
 import { AddNote } from "./AddNote.jsx";
 import { Note } from "./Note.jsx";
+import { DelNote } from "./DelNote.jsx";
 
 export const NotesMain = () => {
   const [notes, setNotes] = useState([]);
   const [isBlured, setIsBlured] = useState(false);
   const [isAddVisible, setIsAddVisible] = useState(false);
+  const [isDelVisible, setIsDelVisible] = useState(false);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -30,6 +32,7 @@ export const NotesMain = () => {
   const closePopups = () => {
     setIsBlured(false);
     setIsAddVisible(false);
+    setIsDelVisible(false);
   };
 
   /*useEffect(() => {
@@ -62,19 +65,34 @@ export const NotesMain = () => {
           onClick={() => {
             setIsBlured(true);
             setIsAddVisible(true);
+            console.log("Add button clicked!");
           }}>
           <FontAwesomeIcon icon={faPlus} />
         </p>
       </div>
-
+      {isDelVisible && (
+        <div
+          className={
+            "absolute w-screen h-screen flex flex-col justify-center items-center text-white z-20"
+          }>
+          <DelNote
+            notes={notes}
+            setNotes={setNotes}
+            closePopups={closePopups}
+          />
+        </div>
+      )}
       <div className={"absolute z-10 bottom-5 right-5"}>
         <p
           className={
             "mt-4 ml-4 w-14 h-14 text-4xl text-white bg-red  flex flex-col justify-center items-center hover:bg-red hover:cursor-pointer hover:text-black transition-all duration-200"
           }
+          id="delete_zone"
           style={{ borderRadius: "50%" }}
           onClick={() => {
-            console.log("Margithai");
+            setIsBlured(true);
+            setIsDelVisible(true);
+            console.log("Delete button clicked!");
           }}>
           <FontAwesomeIcon icon={faMinus} />
         </p>
