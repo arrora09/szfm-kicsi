@@ -78,4 +78,18 @@ button:focus-visible {
 
 body {
     overflow: hidden;
+
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(51, 51, 51);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(0, 174, 130);
 }
