@@ -5,9 +5,11 @@ import { DATA } from "../utils.jsx";
 import { AddNote } from "./AddNote.jsx";
 import { Note } from "./Note.jsx";
 import { DelNote } from "./DelNote.jsx";
+import js from "@eslint/js";
 
 export const NotesMain = () => {
   const [notes, setNotes] = useState([]);
+  const [deleted, setDeleted] = useState([]);
   const [isBlured, setIsBlured] = useState(false);
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [isDelVisible, setIsDelVisible] = useState(false);
@@ -19,7 +21,14 @@ export const NotesMain = () => {
         if (!response.ok) throw new Error("Error loading data");
 
         const jsonData = await response.json();
-        setNotes(jsonData);
+
+        if (jsonData.length !== 0) {
+          setNotes(jsonData.filter((value) => value.isInTrash));
+          setDeleted(jsonData.filter((value) => !value.isInTrash));
+        } else {
+          setNotes([]);
+          setDeleted([]);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -28,6 +37,11 @@ export const NotesMain = () => {
     fetchNotes();
   }, []);
 
+  useEffect(() => {
+    console.log(notes);
+    console.log(deleted);
+  }, [notes, deleted]);
+
   const closePopups = () => {
     setIsBlured(false);
     setIsAddVisible(false);
@@ -35,8 +49,8 @@ export const NotesMain = () => {
   };
 
   /*useEffect(() => {
-        console.log(notes);
-      }, [notes]);*/
+                  console.log(notes);
+                }, [notes]);*/
 
   return (
     <div className={"w-screen h-screen bg-black"}>

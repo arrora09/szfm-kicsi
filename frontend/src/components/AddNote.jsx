@@ -8,6 +8,7 @@ export const AddNote = (props) => {
     title: "",
     description: "",
     color: "#ffffff",
+    isInTrash: false,
   });
 
   const handleChange = (e) => {
@@ -55,14 +56,16 @@ export const AddNote = (props) => {
       <div
         className={
           "mb-4 w-full text-center flex flex-row justify-between items-center"
-        }>
+        }
+      >
         <p></p>
         <p className={"text-xl font-bold mx-8"}>Jegyzet létrehozása</p>
         <p
           className={
             "text-xl text-red hover:cursor-pointer hover:text-red transition-all"
           }
-          onClick={props.closePopups}>
+          onClick={props.closePopups}
+        >
           <FontAwesomeIcon icon={faX} />
         </p>
       </div>
@@ -71,7 +74,8 @@ export const AddNote = (props) => {
           <div className="mb-4">
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray">
+              className="block text-sm font-medium text-gray"
+            >
               Jegyzet címe
             </label>
             <input
@@ -88,7 +92,8 @@ export const AddNote = (props) => {
           <div className="mb-4">
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray">
+              className="block text-sm font-medium text-gray"
+            >
               Jegyzet leírása
             </label>
             <textarea
@@ -106,7 +111,8 @@ export const AddNote = (props) => {
             <div>
               <label
                 htmlFor="color"
-                className="block text-sm font-medium text-gray">
+                className="block text-sm font-medium text-gray"
+              >
                 Jegyzet színe
               </label>
               <input
@@ -121,7 +127,8 @@ export const AddNote = (props) => {
               <button
                 onClick={() => saveNote()}
                 disabled={addDisabled}
-                className="px-4 py-2 bg-green text-white rounded-md hover:bg-green hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green disabled:bg-red disabled:hover:bg-red transition-all disabled:hover:cursor-not-allowed">
+                className="px-4 py-2 bg-green text-white rounded-md hover:bg-green hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green disabled:bg-red disabled:hover:bg-red transition-all disabled:hover:cursor-not-allowed"
+              >
                 Létrehozás
               </button>
             </div>
