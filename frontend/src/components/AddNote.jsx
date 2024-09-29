@@ -106,7 +106,7 @@ export const AddNote = (props) => {
               onChange={handleChange}
               maxLength={160}
               rows={4}
-              className="mt-1 p-2 block w-full bg-white border border-gray rounded-md shadow-sm focus:ring-green focus:border-green text-black"
+              className="mt-1 p-2 block w-full resize-none bg-white border border-gray rounded-md shadow-sm focus:ring-green focus:border-green text-black"
               placeholder="Ide írja a leírást!"
             />
           </div>
