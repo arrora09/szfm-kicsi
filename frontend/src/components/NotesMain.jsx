@@ -22,12 +22,11 @@ export const NotesMain = () => {
         setNotes(jsonData);
       } catch (error) {
         console.error(error);
-        // Optionally handle errors here, e.g., show a message
       }
     };
 
-    fetchNotes(); // Call the async function
-  }, []); // Empty dependency array means this runs once on mount
+    fetchNotes();
+  }, []);
 
   const closePopups = () => {
     setIsBlured(false);
@@ -36,8 +35,8 @@ export const NotesMain = () => {
   };
 
   /*useEffect(() => {
-    console.log(notes);
-  }, [notes]);*/
+        console.log(notes);
+      }, [notes]);*/
 
   return (
     <div className={"w-screen h-screen bg-black"}>
@@ -48,7 +47,8 @@ export const NotesMain = () => {
         <div
           className={
             "absolute w-screen h-screen flex flex-col justify-center items-center text-white z-20"
-          }>
+          }
+        >
           <AddNote
             notes={notes}
             setNotes={setNotes}
@@ -65,8 +65,9 @@ export const NotesMain = () => {
           onClick={() => {
             setIsBlured(true);
             setIsAddVisible(true);
-            console.log("Add button clicked!");
-          }}>
+            //console.log("Add button clicked!");
+          }}
+        >
           <FontAwesomeIcon icon={faPlus} />
         </p>
       </div>
@@ -74,7 +75,8 @@ export const NotesMain = () => {
         <div
           className={
             "absolute w-screen h-screen flex flex-col justify-center items-center text-white z-20"
-          }>
+          }
+        >
           <DelNote
             notes={notes}
             setNotes={setNotes}
@@ -92,8 +94,9 @@ export const NotesMain = () => {
           onClick={() => {
             setIsBlured(true);
             setIsDelVisible(true);
-            console.log("Delete button clicked!");
-          }}>
+            //console.log("Delete button clicked!");
+          }}
+        >
           <FontAwesomeIcon icon={faMinus} />
         </p>
       </div>

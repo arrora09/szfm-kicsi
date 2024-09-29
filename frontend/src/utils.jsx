@@ -15,4 +15,13 @@ export const DATA = {
       pos: { x: 100, y: 100 },
     },
   ],
+  deleted: [
+    {
+      id: 3,
+      title: "deleted",
+      description: "desc",
+      color: "#000000",
+      pos: { x: 0, y: 0 },
+    },
+  ],
 };
