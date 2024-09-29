@@ -7,7 +7,7 @@ export const AddNote = (props) => {
   const [newNote, setNewNote] = useState({
     title: "",
     description: "",
-    color: "#ffffff",
+    color: "#ffff00",
     isInTrash: false,
   });
 

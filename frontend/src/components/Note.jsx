@@ -101,7 +101,7 @@ export const Note = (props) => {
       }}
     >
       <div
-        className={`shadow-lg font-sans text-sm p-2 rounded-lg text-center`}
+        className={`shadow-lg font-sans text-sm p-2 rounded-lg text-center text-black`}
         style={{ backgroundColor: props.note.color }}
       >
         <span className="font-sans text-xl px-4 mix-blend-normal">
