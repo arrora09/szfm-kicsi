@@ -21,13 +21,16 @@ export const NotesMain = () => {
         if (!response.ok) throw new Error("Error loading data");
 
         const jsonData = await response.json();
+        console.log(jsonData);
 
         if (jsonData.length !== 0) {
           setNotes(jsonData.filter((value) => value.isInTrash));
           setDeleted(jsonData.filter((value) => !value.isInTrash));
+          console.log("IFben");
         } else {
           setNotes([]);
           setDeleted([]);
+          console.log("else");
         }
       } catch (error) {
         console.error(error);
@@ -38,8 +41,16 @@ export const NotesMain = () => {
   }, []);
 
   useEffect(() => {
-    console.log(notes);
-    console.log(deleted);
+    //console.log(notes);
+    //console.log(deleted);
+    if (notes.length !== 0) {
+      const newDeleted = [...deleted, notes.filter(value => value.isInTrash)];
+      setDeleted(newDeleted);
+    }
+    if (deleted.length !== 0) {
+      const newNotes = [...notes, deleted.filter(value => !value.isInTrash)];
+      setNotes(newNotes);
+    }
   }, [notes, deleted]);
 
   const closePopups = () => {
@@ -48,9 +59,9 @@ export const NotesMain = () => {
     setIsDelVisible(false);
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
                   console.log(notes);
-                }, [notes]);*/
+                }, [notes]);
 
   return (
     <div className={"w-screen h-screen bg-black"}>
@@ -117,7 +128,7 @@ export const NotesMain = () => {
       {notes.map((note) => {
         return (
           <div key={note.id} className="absolute z-0">
-            <Note notes={notes} setNotes={setNotes} {...note}></Note>
+            <Note notes={notes} setNotes={setNotes} note={note}></Note>
           </div>
         );
       })}

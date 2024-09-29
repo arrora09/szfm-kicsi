@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "title": "asdasd",
+    "description": "fafadfds",
+    "color": "#703838",
+    "isInTrash": false,
+    "pos": {
+      "x": 200,
+      "y": 200
+    },
+    "id": 0
+  }
+]

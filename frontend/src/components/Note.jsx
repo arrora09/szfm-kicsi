@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Draggable from "react-draggable";
 
 export const Note = (props) => {
-  const [x, setX] = useState(props.pos.x);
-  const [y, setY] = useState(props.pos.y);
+  const [x, setX] = useState(props.note.pos.x);
+  const [y, setY] = useState(props.note.pos.y);
 
   return (
     <Draggable
@@ -39,9 +39,7 @@ export const Note = (props) => {
           const deleteThreshold = deleteZone.radius + 45;
 
           if (distanceToDeleteZone <= deleteThreshold) {
-            const updatedNotes = props.notes.filter(
-              (note) => note.id !== props.id,
-            );
+            const updatedNotes = props.notes.map((value) => value.id === props.note.id? {...value, isInTrash: true}: value);
             props.setNotes(updatedNotes);
 
             const response = await fetch("http://localhost:4000/save", {
@@ -59,7 +57,7 @@ export const Note = (props) => {
         }
 
         const newNotes = props.notes.map((note) => {
-          if (note.id === props.id) {
+          if (note.id === props.note.id) {
             return {
               ...note,
               pos: { x, y },
@@ -83,15 +81,15 @@ export const Note = (props) => {
     >
       <div
         className={`shadow-lg font-sans text-sm p-2 rounded-lg text-center`}
-        style={{ backgroundColor: props.color }}
+        style={{ backgroundColor: props.note.color }}
       >
         <span className="font-sans text-xl px-4 mix-blend-normal">
-          {props.title}
+          {props.note.title}
         </span>
 
-        {props.description && (
+        {props.note.description && (
           <p className="font-sans text-xs px-4 mix-blend-normal max-w-48 break-words">
-            {props.description}
+            {props.note.description}
           </p>
         )}
       </div>

@@ -3,37 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsToDot, faX } from "@fortawesome/free-solid-svg-icons";
 
 export const DelNote = (props) => {
-  const [addDisabled, setAddDisabled] = useState(false);
-  const [delDisabled, setDelDisabled] = useState(false);
-  const [oldNote, setOldNote] = useState({
-    title: "",
-    description: "",
-    color: "#ffffff",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setOldNote({ ...oldNote, [name]: value });
-  };
-
-  const delNote = async () => {
-    // TODO
-    props.closePopups();
-  };
-
-  useEffect(() => {
-    if (!oldNote.title.trim()) {
-      setDelDisabled(true);
-      return;
-    }
-
-    if (!oldNote.color.trim()) {
-      setDelDisabled(true);
-      return;
-    }
-
-    setDelDisabled(false);
-  }, [oldNote]);
 
   return (
 <div className={"w-fit min-h-fit p-3 bg-gray-200 text-black rounded-xl"}>
