@@ -22,3 +22,9 @@ backend:
 -> npm install (ha még nem történt meg)
 -> node server.js
 -> Server running on: http://localhost:4000
+
+frontend:
+-> cd frontend
+-> npm install
+-> npm run dev
+-> open link
