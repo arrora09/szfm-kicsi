@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "title",
+    "description": "desc",
+    "color": "#FFFF00",
+    "pos": {
+      "x": 487,
+      "y": 379
+    },
+    "isInTrash": false
+  }
+]
