@@ -6,7 +6,6 @@ actor "Felhasználó" as a1
 
 rectangle "TODO" {
     a1 --> (Kártya létrehozása)
-    a1 --> (Kártya szerkesztése)
     a1 --> (Kártya mozgatása)
     a1 --> (Kártya kidobása)
     a1 --> (Lomtár űrítése)
